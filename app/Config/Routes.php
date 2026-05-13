@@ -20,29 +20,23 @@ $routes->post('users/update', 'Users::update');
 $routes->delete('users/delete/(:num)', 'Users::delete/$1');
 $routes->post('users/fetchRecords', 'Users::fetchRecords');
 
-// Person routes
-$routes->get('/person', 'Person::index');
-$routes->post('person/save', 'Person::save');
-$routes->get('person/edit/(:segment)', 'Person::edit/$1');
-$routes->post('person/update', 'Person::update');
-$routes->delete('person/delete/(:num)', 'Person::delete/$1');
-$routes->post('person/fetchRecords', 'Person::fetchRecords');
+// Dashboard Routes
+$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('dashboard/getStats', 'Dashboard::getStats');
+$routes->get('dashboard/getRecentProducts', 'Dashboard::getRecentProducts');
 
-// Profiling routes
-$routes->get('/profiling', 'Profiling::index');
-$routes->post('profiling/save', 'Profiling::save');
-$routes->get('profiling/edit/(:segment)', 'Profiling::edit/$1');
-$routes->post('profiling/update', 'Profiling::update');
-$routes->delete('profiling/delete/(:num)', 'Profiling::delete/$1');
-$routes->post('profiling/fetchRecords', 'Profiling::fetchRecords');
 
-// Student routes
-$routes->get('/student', 'Student::index');
-$routes->post('student/save', 'Student::save');
-$routes->get('student/edit/(:segment)', 'Student::edit/$1');
-$routes->post('student/update', 'Student::update');
-$routes->delete('student/delete/(:num)', 'Student::delete/$1');
-$routes->post('student/fetchRecords', 'Student::fetchRecords');
+// Products Routes
+$routes->get('/products', 'Products::index');
+$routes->post('products/save', 'Products::save');
+$routes->get('products/edit/(:segment)', 'Products::edit/$1');
+$routes->post('products/update', 'Products::update');
+$routes->delete('products/delete/(:num)', 'Products::delete/$1');
+$routes->post('products/fetchRecords', 'Products::fetchRecords');
 
 // Logs routes for admin
 $routes->get('/log', 'Logs::log');
+
+$routes->post('sales/checkout', 'SalesController::checkout');
+$routes->get('products/getProducts', 'ProductsController::getProducts');
+$routes->get('pos', 'SalesController::index');

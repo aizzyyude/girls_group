@@ -14,7 +14,7 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">
-        <img src="<?= base_url('assets/img/pasig.jpeg') ?>" width="30%">
+        <img src="<?= base_url('assets/img/logo.png') ?>" width="30%">
         <br>Sign in to start your session
       </p>
 

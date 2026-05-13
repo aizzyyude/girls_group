@@ -7,18 +7,18 @@
         </li>
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link" style="color: #fff;">
+            <a href="<?= base_url('dashboard') ?>" class="nav-link" style="color: #fff;">
                 Home
             </a>
         </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#" id="themeToggle" style="color: #fff;">
-            <i class="fas fa-sun"></i>
-        </a>
-       </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" id="themeToggle" style="color: #fff;">
+                <i class="fas fa-sun"></i>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a style="color: #fff;" class="nav-link" href="#">

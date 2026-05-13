@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 21, 2025 at 12:33 PM
--- Server version: 10.11.9-MariaDB-0+deb12u1
--- PHP Version: 8.2.26
+-- Host: 127.0.0.1
+-- Generation Time: Apr 17, 2026 at 05:26 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `crud_db`
+-- Database: `vilma_inventory_system`
 --
 
 -- --------------------------------------------------------
@@ -41,6 +41,40 @@ CREATE TABLE `login_attempts` (
 
 INSERT INTO `login_attempts` (`id`, `email`, `ip_address`, `attempt_time`, `user_agent`) VALUES
 (36, 'glennazuelo1@gmail.com', '::142432432', '2025-04-15 13:15:00', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  `unit` varchar(50) DEFAULT 'piece',
+  `description` text DEFAULT NULL,
+  `status` enum('Available','Out of Stock','Discontinued') DEFAULT 'Available',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `category`, `price`, `stock`, `unit`, `description`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Coca Cola 1.5L', 'Beverages', 100.00, 20, 'bottle', 'Coca Cola soft drink 1.5 liters', 'Available', '2026-04-17 10:37:41', '2026-04-17 11:26:20', NULL),
+(2, 'Nissin Cup Noodles', 'Food', 25.00, 100, 'cup', 'Instant cup noodles', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(3, 'Silver Swan Soy Sauce 1L', 'Groceries', 35.00, 30, 'bottle', 'Soy sauce 1 liter', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(4, 'Piattos Potato Chips', 'Snacks', 20.00, 75, 'pack', 'Cheese flavor potato chips', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(5, 'Bear Brand Milk Powder', 'Dairy', 12.00, 200, 'sachet', 'Powdered milk drink', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(6, 'Surf Laundry Powder', 'Household', 10.00, 150, 'sachet', 'Laundry detergent powder', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(7, 'C2 Green Tea', 'Beverages', 18.00, 80, 'bottle', 'Green tea drink', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL),
+(8, 'Rebisco Crackers', 'Snacks', 15.00, 120, 'pack', 'Cracker biscuits', 'Available', '2026-04-17 10:37:41', '2026-04-17 10:37:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -77,7 +111,11 @@ INSERT INTO `tbl_logs` (`LOGID`, `USERID`, `ACTION`, `DATELOG`, `TIMELOG`, `user
 (10, '1', 'Logout', '2025-07-21', '20:19:56', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'Glenn Azuelo', 'LOGOUT'),
 (11, '1', 'Login: Glenn Azuelo', '2025-07-21', '20:21:27', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'Glenn Azuelo', 'LOGIN'),
 (12, '1', 'New User has been added: xxx', '2025-07-21', '20:32:39', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'Glenn Azuelo', 'ADD'),
-(13, '1', 'Delete user', '2025-07-21', '20:32:44', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'Glenn Azuelo', 'DELETED');
+(13, '1', 'Delete user', '2025-07-21', '20:32:44', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'Glenn Azuelo', 'DELETED'),
+(14, '1', 'Login: Glenn Azuelo', '2026-04-17', '10:21:52', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'Glenn Azuelo', 'LOGIN'),
+(15, '1', 'New User has been added: gwapa', '2026-04-17', '10:26:44', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'Glenn Azuelo', 'ADD'),
+(16, '1', 'Logout', '2026-04-17', '10:26:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'Glenn Azuelo', 'LOGOUT'),
+(17, '12', 'Login: gwapa', '2026-04-17', '10:26:53', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'gwapa', 'LOGIN');
 
 -- --------------------------------------------------------
 
@@ -106,7 +144,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `uuid`, `email`, `password`, `role`, `status`, `name`, `phone`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 'glennazuelo1@gmail.com', '$2y$10$aitqcz/yYmTPfmMGbMbnXuGEdwNG63RI1qbTF9IM0cg5SrUg4P/iu', 'User', 'Active', 'Glenn Azuelo', '09125110476', '2025-04-17 13:31:01', '2025-07-21 04:18:03', '2025-07-21 04:18:03'),
 (9, NULL, 'glennazuelo1@gmail.comd', '$2y$10$Xv57FAvSxnip8apDXF3rmutrLIESHcAHYVzQMKgMf2tu6GknL4Plm', 'Admin', 'Active', 'Glenn Azuelo', '09125110476', '2025-05-24 07:00:28', '2025-05-23 23:00:28', '2025-05-23 23:00:28'),
-(10, NULL, 'glennazuelo1@gmail.com1', '$2y$10$PxNNhaa76.SAbFFelJU9xOZRajcVMCZkeToZ09l1FR5ll13saXu4q', 'Admin', 'Active', 'Cherry Ann Grandia', '09125110476', '2025-05-24 07:00:50', '2025-07-21 04:19:17', '2025-07-21 04:19:17');
+(10, NULL, 'glennazuelo1@gmail.com1', '$2y$10$PxNNhaa76.SAbFFelJU9xOZRajcVMCZkeToZ09l1FR5ll13saXu4q', 'Admin', 'Active', 'Cherry Ann Grandia', '09125110476', '2025-05-24 07:00:50', '2025-07-21 04:19:17', '2025-07-21 04:19:17'),
+(12, NULL, 'gwapa@gmail.com', '$2y$10$HpKAcCNqweLWZDRzrx0q1.k2.tOWBLRLBqJ5EbCW/./zIBn4fx4JO', 'Admin', 'Active', 'gwapa', '', '2026-04-17 02:26:44', '2026-04-16 18:26:44', '2026-04-16 18:26:44');
 
 --
 -- Indexes for dumped tables
@@ -117,6 +156,14 @@ INSERT INTO `users` (`id`, `uuid`, `email`, `password`, `role`, `status`, `name`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_category` (`category`),
+  ADD KEY `idx_status` (`status`);
 
 --
 -- Indexes for table `tbl_logs`
@@ -143,16 +190,22 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `LOGID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `LOGID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
