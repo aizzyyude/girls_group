@@ -37,6 +37,6 @@ $routes->post('products/fetchRecords', 'Products::fetchRecords');
 // Logs routes for admin
 $routes->get('/log', 'Logs::log');
 
-$routes->post('sales/checkout', 'SalesController::checkout');
-$routes->get('products/getProducts', 'ProductsController::getProducts');
-$routes->get('pos', 'SalesController::index');
+$routes->post('sales/checkout', 'Products::checkout');
+$routes->get('products/getProducts', 'Products::getProducts');
+$routes->get('pos', 'Products::pos');

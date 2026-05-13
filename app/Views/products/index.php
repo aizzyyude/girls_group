@@ -26,6 +26,9 @@
             <div class="card-header">
               <h3 class="card-title">List of Products</h3>
               <div class="float-right">
+                <a href="<?= site_url('pos') ?>" class="btn btn-md btn-success mr-2">
+                  <i class="fas fa-cash-register"></i> Go to POS
+                </a>
                 <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#AddNewModal">
                   <i class="fa fa-plus-circle fa fw"></i> Add New
                 </button>

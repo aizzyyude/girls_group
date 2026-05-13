@@ -191,4 +191,86 @@ class Products extends BaseController
             'message' => 'Failed to delete product'
         ]);
     }
+    public function getProducts()
+    {
+        // Try fetching from database
+        $products = $this->productModel
+            ->orderBy('name', 'ASC')
+            ->findAll();
+
+        return $this->response->setJSON([
+            'data' => $products
+        ]);
+    }
+
+    public function pos()
+    {
+        return view('pos');
+    }
+
+    public function checkout()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(403);
+        }
+
+        $db = \Config\Database::connect();
+        $cart = $this->request->getPost('cart');
+
+        if (empty($cart)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Cart is empty.'
+            ]);
+        }
+
+        $salesModel = new \App\Models\SalesModel();
+        $db->transStart();
+
+        foreach ($cart as $item) {
+            $product = $this->productModel->find($item['id']);
+
+            if (!$product) {
+                $db->transRollback();
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => "Product not found: " . ($item['name'] ?? 'ID ' . $item['id'])
+                ]);
+            }
+
+            if ($product['stock'] < $item['qty']) {
+                $db->transRollback();
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => "Insufficient stock for {$product['name']}. Available: {$product['stock']}"
+                ]);
+            }
+
+            $salesModel->insert([
+                'products_id' => $item['id'],
+                'quantity'    => $item['qty'],
+                'price'       => $item['price'],
+                'total'       => $item['price'] * $item['qty'],
+                'created_at'  => date('Y-m-d H:i:s')
+            ]);
+
+            $this->productModel->update($item['id'], [
+                'stock' => $product['stock'] - $item['qty']
+            ]);
+        }
+
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Transaction failed. Please try again.'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Checkout successful!'
+        ]);
+    }
 }
